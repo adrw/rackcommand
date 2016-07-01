@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html ng-app="rackCommand" lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <title>RackCommand Server SetUp</title>
+      <!-- Bootstrap Core CSS -->
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+      <!-- Custom CSS -->
+      <link href="css/style.css" rel="stylesheet">
+      <!-- Font Awesome -->
+      <link href="font-awesome-4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+      <!-- Google Fonts -->
+      <link href='http://fonts.googleapis.com/css?family=Roboto:900,300,700,400' rel='stylesheet' type='text/css'>
+      <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+      <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+      <!-- AngularJS -->
+      <script type="text/javascript" src="angular.min.js"></script>
+      <!-- Angular Functionality Dependencies -->
+      <script type="text/javascript" src="app.js"></script>
+      <script type="text/javascript" src="signup.js"></script>
+      <script type="text/javascript" src="setup.js"></script>
+      <script type="text/javascript" src="angular-payments.js"></script>
+   </head>
+   <body ng-controller="rcController as rc">
+      <!-- Navigation Bar -->
+      <nav class="navbar navbar-default" role="navigation">
+         <div class="container-fluid">
+            <div class="container">
+               <div class="navbar-header">
+                  <a class="navbar-brand" href="index.html">RackCommand</a>
+               </div>
+               <ul class="nav navbar-nav navbar-right">
+                  <li><a href="setup.html">Servers</a></li>
+                  <li><a href="signup.html">Sign Up</a></li>
+                  <li><a href="#">Login</a></li>
+               </ul>
+            </div>
+         </div>
+      </nav>
+      <!-- <div class="clear"></div> -->
+      <!-- Header -->
+      <div class="container" ng-controller="rcSetupController as rcsu">
+         <div class="row">
+            <h1>Servers</h1>
+        </div>
+        
+            <!-- Email Signup Form-->
+            <form class="form-horizontal" name="setupForm" ng-submit="signupForm.$valid && rcsu.modifyServer(server)" novalidate>
+               <div class="row">
+                    <fieldset class="form-horizontal">
+                        <label class="col-md-4 control-label">Server Name {{setupForm.serverName.$valid}}</label>
+                        <div class="col-md-4">
+                           <input id="serverName" name="serverName" ng-model="server.serverName" type="textinput" placeholder="My Favourite Server #69" class="form-control input-md" required/>
+                           <br/>
+                        </div>
+                     </fieldset>
+                  </div>
+                  <!-- Still have to create proper validation for this one -->
+               <div class="row">
+                 <fieldset class="form-horizontal">
+                     <label class="col-md-4 control-label">Host Name {{setupForm.hostName.$valid}}</label>
+                     <div class="col-md-4">
+                        <input id="hostName" name="hostName" ng-model="server.hostName" type="textinput" placeholder="104.131.176.38" ng-pattern='/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/' class="form-control input-md" required/>
+                        <span class="help-block">IP Address for your server</span> 
+                     </div>
+                  </fieldset>
+               </div>
+               <div class="row">
+                 <fieldset class="form-horizontal">
+                     <label class="col-md-4 control-label">Host Port {{setupForm.hostPort.$valid}}</label>
+                     <div class="col-md-4">
+                        <input id="hostPort" name="hostPort" ng-model="server.hostPort" type="number" placeholder="22" class="form-control input-md" required/>
+                        <span class="help-block">SSH Port for your server</span> 
+                     </div>
+                  </fieldset>
+               </div>
+               <div class="row">
+                 <fieldset class="form-horizontal">
+                     <label class="col-md-4 control-label">Host User {{setupForm.hostUser.$valid}}</label>
+                     <div class="col-md-4">
+                        <input id="hostUser" name="hostUser" ng-model="server.hostUser" type="textinput" placeholder="root" class="form-control input-md" required/>
+                        <span class="help-block">Admin access to your server (often root)</span> 
+                     </div>
+                  </fieldset>
+               </div>
+               <!-- Host Auth Options -->
+               <div class="row">
+                  <div class="form-horizontal">
+                        <label class="col-md-4 control-label">Host Authentication</label>
+                            <div class="col-md-4">
+                                <input type="radio" name="server.hostAuth" value="Password" id="server.hostAuth1" ng-model="server.hostAuth" ng-click="atab = 1"/>
+                                    <label for="server.hostAuth1">Password</label>
+                                <input type="radio" name="server.hostAuth" value="Key" id="server.hostAuth2" ng-model="server.hostAuth" ng-click="atab = 2"/>
+                                    <label for="server.hostAuth2">Key</label>
+                            </div>
+                            <br/>
+                     </div>
+                 </div>
+               <div class="row" ng-init="atab = 0">
+                    <fieldset class="form-horizontal" ng-show="atab === 1">
+                        <label class="col-md-4 control-label">Password</label>
+                        <div class="col-md-4">
+                           <input id="name" name="name" ng-model="server.hostPassword" type="textinput" placeholder="s3cuR3-pa$$w0rd" class="form-control input-md" ng-required="server.hostAuth === 'Password'"/>
+                           <span class="help-block">Password for {{server.hostUser}} account</span> 
+                        </div>
+                     </fieldset>
+                     <fieldset class="form-horizontal" ng-show="atab === 2">
+                        <label class="col-md-4 control-label">Server Key</label>
+                        <div class="col-md-4">
+                           <input id="name" name="name" ng-model="server.hostKey" type="file" placeholder="ServerKey.txt" class="form-control input-md" ng-required="server.hostAuth === 'Key'"/>
+                           <span class="help-block">Server Key text file for {{server.hostUser}} account</span> 
+                        </div>
+                     </fieldset>
+                  </div>
+               <!-- OS Distro Options -->
+               <div class="row">
+                  <fieldset class="form-horizontal">
+                        <label class="col-md-4 control-label">Server OS {{setupForm.distro1.$valid}} {{setupForm.distro2.$valid}}</label>
+                            <div class="col-md-4">
+                                <input type="radio" name="server.distro" value="Debian" id="server.distro1" ng-model="server.distro" ng-click="otab = 1" required/>
+                                    <label for="server.distro1">Debian</label>
+                                <input type="radio" name="server.distro" value="CentOS" id="server.distro2" ng-model="server.distro" ng-click="otab = 1" required/>
+                                    <label for="server.distro2">CentOS</label>
+                                 <input type="radio" name="server.distro" value="Ubuntu" id="server.distro3" ng-model="server.distro" ng-click="otab = 2" required/>
+                                    <label for="server.distro3">Ubuntu</label>
+                            </div>
+                            <br/>
+                     </fieldset>
+                 </div>
+               <div class="row" ng-init="otab = 0">
+                  <fieldset class="form-horizontal" ng-show="otab === 1">
+                        <label class="col-md-4 control-label">{{server.distro}} Version</label>
+                            <div class="col-md-4">
+                                <input type="radio" name="server.version" value="6" id="server.version1" ng-model="server.version"/>
+                                    <label for="server.version1" required>6</label>
+                                <input type="radio" name="server.version" value="7" id="server.version2" ng-model="server.version"/>
+                                    <label for="server.version2" required>7</label>
+                            </div>
+                            <br/>
+                     </fieldset>
+                     <fieldset class="form-horizontal" ng-show="otab === 2">
+                        <label class="col-md-4 control-label">{{server.distro}} Version</label>
+                            <div class="col-md-4">
+                                <input type="radio" name="server.version" value="12" id="server.version5" ng-model="server.version" required/>
+                                    <label for="server.version5">12</label>
+                                <input type="radio" name="server.version" value="14" id="server.version6" ng-model="server.version" required/>
+                                    <label for="server.version6">14</label>
+                            </div>
+                            <br/>
+                     </fieldset>
+                 </div>
+                 <div class="row">
+                     <fieldset>
+                     <!-- Sign Up Button -->
+                     <div class="form-group">
+                        <label class="col-md-4 control-label" for="singlebutton">setupForm is {{setupForm.$valid}} </label>
+                        <div class="col-md-4">
+                           <button class="btn" ng-class=" {  'btn-success': setupForm.$valid } " type="submit">Sign Up</button>
+                        </div>
+                     </fieldset>
+                  </div>   
+
+               <pre>setupForm = {{server | json}}</pre>
+         </div>
+      </div>
+      <br />
+      <!-- Footer -->
+      <div class="container">
+         <footer>
+            <div class="row">
+               <div class="col-lg-12">
+                  <p>Copyright &copy; RackCommand 2014</p>
+               </div>
+            </div>
+         </footer>
+      </div>
+      <!-- jQuery -->
+      <script src="js/jquery.js"></script>
+      <!-- Bootstrap Core JavaScript -->
+      <script src="js/bootstrap.min.js"></script>
+      <!-- Custom Theme JavaScript -->
+      <script src="js/script.js"></script>
+   </body>
+</html>

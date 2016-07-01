@@ -1,0 +1,146 @@
+/* Server Stack CSS */
+
+body {
+    overflow-x: hidden;
+    font-family: "Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+div.clear {
+    clear:both;
+}
+
+/* Navbar */
+
+.navbar {
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+}
+
+/* Statistics Column */
+
+.stats-column {
+	width: 325px;
+	margin-top: 35px;
+	text-align: right;
+	font-size: 15px;
+	float: right;
+}
+.stats-column ul {
+	list-style-type: none;
+}
+.stats-column li {
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+
+/* Software Stacks */
+
+.software-stack {
+	text-align: center;
+}
+
+.software-stack img {
+	max-height: 80px;
+}
+
+.software-stack h3 {
+	text-align: left;
+	margin-right:20px;
+}
+
+.software-stack i {
+	display: inline;
+	float: right;
+	margin-top:3px;
+}
+
+/* Get Started */
+.get-started {
+	text-align: center;
+}
+
+/* Footer */
+
+footer {
+    margin: 50px 0;
+}
+
+/* Sign Up Page */
+
+.ng-invalid.ng-dirty {
+	border-color: #E54C3C;
+}
+
+.ng-valid.ng-dirty {
+	border-color: #1EA1DB;
+}
+
+input[type=radio] {
+	display:none;
+}
+
+input[type=radio] + label {
+ 	position: relative;
+ 	display: inline-block;
+ 	padding: 10px 15px;
+ 	color: #337ab7;
+ 	font-weight: normal;
+ 	cursor: pointer;
+}
+
+input[type=radio] + label:hover {
+ 	background-color: #eee;
+ 	color: #000;
+ 	border-radius: 4px;
+}
+
+input[type=radio]:checked + label {
+ 	background-color: #337ab7;
+ 	border-radius: 4px;
+ 	color: #fff;
+ 	font-weight: 400;
+}
+
+
+
+
+/*Loading icon while checks email*/
+@-webkit-keyframes rotating {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+.rotating {
+  float: right;
+  position: relative;
+  top: -24px;
+  right: 10px;
+  -webkit-animation: rotating 1s linear infinite;
+}
+
+/* Stack Page */
+
+.header-image {
+	max-height: 40px;
+	padding-right: 10px;
+}
+
+/* Output Window */
+
+.output-window {
+	display: block;
+	background-color: #373737;
+	color: #f2f2f2;
+	height: 250px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding: 20px 20px 5px 20px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}

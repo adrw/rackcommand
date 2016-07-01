@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html ng-app="rackCommand" lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <title>RackCommand Sign Up</title>
+      <!-- Bootstrap Core CSS -->
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+      <!-- Custom CSS -->
+      <link href="css/style.css" rel="stylesheet">
+      <!-- Font Awesome -->
+      <link href="font-awesome-4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+      <!-- Google Fonts -->
+      <link href='http://fonts.googleapis.com/css?family=Roboto:900,300,700,400' rel='stylesheet' type='text/css'>
+      <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+      <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+      <!-- AngularJS -->
+      <script type="text/javascript" src="angular.min.js"></script>
+      <!-- Angular Functionality Dependencies -->
+      <script type="text/javascript" src="app.js"></script>
+      <script type="text/javascript" src="signup.js"></script>
+      <script type="text/javascript" src="setup.js"></script>
+      <script type="text/javascript" src="angular-payments.js"></script>
+   </head>
+   <body ng-controller="rcController as rc">
+      <!-- Navigation Bar -->
+      <nav class="navbar navbar-default" role="navigation">
+         <div class="container-fluid">
+            <div class="container">
+               <div class="navbar-header">
+                  <a class="navbar-brand" href="index.html">RackCommand</a>
+               </div>
+               <ul class="nav navbar-nav navbar-right">
+                  <li><a href="setup.html">Servers</a></li>
+                  <li><a href="signup.html">Sign Up</a></li>
+                  <li><a href="#">Login</a></li>
+               </ul>
+            </div>
+         </div>
+      </nav>
+      <!-- <div class="clear"></div> -->
+      <!-- Header -->
+      <div class="container" ng-controller="rcSignUpController as rcsu">
+         <div class="row">
+            <h1>Register Account</h1>
+        </div>
+        
+            <!-- Email Signup Form-->
+            <form class="form-horizontal" name="signupForm" ng-submit="signupForm.$valid && rcsu.createAccount(account)" novalidate>
+                <div class="row">
+                    <fieldset class="form-horizontal">
+                        <label class="col-md-4 control-label">Sign Up With</label>
+                            <div class="col-md-4">
+                                <input type="radio" name="account.accountType" value="Email" id="account.accountType1" ng-model="account.accountType" ng-click="atab = 1"/>
+                                    <label for="account.accountType1">Email</label>
+                                <input type="radio" name="account.accountType" value="Google" id="account.accountType2" ng-model="account.accountType" ng-click="atab = 2"/>
+                                    <label for="account.accountType2">Google</label>
+                                <input type="radio" name="account.accountType" value="Facebook" id="account.accountType3" ng-model="account.accountType" ng-click="atab = 3"/>
+                                    <label for="account.accountType3">Facebook</label>
+                                <input type="radio" name="account.accountType" value="Twitter" id="account.accountType4" ng-model="account.accountType" ng-click="atab = 4"/>
+                                    <label for="account.accountType4">Twitter</label>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <br/>
+
+               
+                  <div class="row" ng-init="atab = 0">
+                    <fieldset ng-show="atab === 1" class="form-horizontal">
+                      <!-- Email input-->
+                      <div class="form-group">
+                         <label class="col-md-4 control-label" for="email">Email {{signupForm.email.$valid}}</label>  
+                         <div class="col-md-4">
+                            <input id="email" name="email" ng-model="account.email" type="email" placeholder="john.appleseed@gmail.com" class="form-control input-md" exclude="account.accountType" ng-required="account.accountType === 'Email'">
+                            <span class="help-block" ng-show="signupForm.email.$dirty && signupForm.email.$error.email">Email is invalid</span>  
+                         </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  <div class="row">
+                    <fieldset ng-show="atab === 1" class="form-horizontal">
+                      <!-- Password input-->
+                      <div class="form-group">
+                         <label class="col-md-4 control-label" for="password">Password {{signupForm.password.$valid}}</label>
+                         <div class="col-md-4">
+                            <input id="password" name="password" type="password" ng-model="account.password" match="account.verification" mlength="account.verification" placeholder="s3cuR3-pa$$w0rd" class="form-control input-md" ng-required="account.accountType === 'Email'">
+                            <span class="help-block">8-character minimum; case sensitive</span>
+                         </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div class="row">
+                    <fieldset ng-show="atab === 1" class="form-horizontal">
+                      <!-- Password Verification input-->
+                      <div class="form-group">
+                         <label class="col-md-4 control-label" for="verification">Confirm Password {{signupForm.verification.$valid}}</label>
+                         <div class="col-md-4">
+                            <input id="verification" name="verification" type="password" ng-model="account.verification" match="account.password" mlength="account.password" placeholder="s3cuR3-pa$$w0rd" class="form-control input-md" ng-required="account.accountType === 'Email'">
+                            <span class="help-block" ng-show="signupForm.verification.$dirty && signupForm.verification.$error.match">Passwords don't match.</span>
+                            <span class="help-block" ng-show="signupForm.verification.$dirty && signupForm.verification.$error.mlength">Password is less than 8 characters</span>
+                         </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                    </div>
+
+                    <div class="col-md-4" ng-show="atab > 1">
+                      <fieldset>
+                        <p>Signup with {{account.accountType}} for user confirmed.</p>
+
+                        <!-- Replace checkbox below with callback to check for successful authorization, set as hidden input so form doesn't validate unless successfully authorized. -->
+                        <div class="checkbox">
+                            <label>
+                              <input type="checkbox" id="socialterms" name="socialterms" ng-model="account.socialterms" ng-require="account.accountType !== 'Email'"/> I agree to give access to my {{account.accountType}} account.
+                            </label>
+                          </div>
+                        </fieldset>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <h2>Payment</h2>
+                </div>
+                <div class="row">
+                    <div class="form-horizontal">
+                        <label class="col-md-4 control-label" for="nav nav-pills">Pay With</label>
+
+                        <div class="col-md-4">
+                            <input type="radio" name="account.paymentType" value="creditCard" id="account.paymentType1" ng-model="account.paymentType" ng-click="ptab = 1"/>
+                                <label for="account.paymentType1">Credit Card</label>
+                            <input type="radio" name="account.paymentType" value="payPal" id="account.paymentType2" ng-model="account.paymentType" ng-click="ptab = 2"/>
+                                <label for="account.paymentType2">PayPal</label>
+                        </div>
+                    </div>
+                </div>
+
+                <br/>
+
+
+
+                <div class="row">
+                    <fieldset ng-show="ptab === 1">
+                      <!-- Credit Card Name input-->
+                      <div class="form-group">
+                         <label class="col-md-4 control-label" for="name">Name {{signupForm.name.$valid}}</label>  
+                         <div class="col-md-4">
+                            <input id="name" name="name" ng-model="account.card.cardName" type="text" placeholder="John Appleseed" class="form-control input-md" ng-required="account.paymentType === 'creditCard'">
+                            <!-- <span class="help-block" ng-show="signupForm.cc.$dirty && signupForm.cardNumber.$error">Credit Card is invalid</span> -->  
+                         </div>
+                      </div>
+                      <!-- Credit Card Number input-->
+                      <div class="form-group">
+                         <label class="col-md-4 control-label" for="card">Credit Card {{signupForm.card.$valid}}</label>  
+                         <div class="col-md-4">
+                            <input id="card" name="card" ng-model="account.card.cardNumber" type="text" placeholder="XXXX XXXX XXXX XXXX" class="form-control input-md" payments-validate="card" payments-type-model="type" payments-format="card" ng-class="signupForm.cardNumber.$card.type" ng-required="account.paymentType === 'creditCard'">
+                            <!-- <span class="help-block" ng-show="signupForm.cc.$dirty && signupForm.cardNumber.$error">Credit Card is invalid</span> -->  
+                         </div>
+                      </div>
+                      <!-- Expiry and CVC input-->
+                      <div class="form-group">
+                         <label class="col-md-4 control-label" for="expiry">Expiry {{signupForm.expiry.$valid}}</label>  
+                         <div class="col-md-2">
+                            <input id="expiry" name="expiry" ng-model="account.card.cardExpiry" type="text" placeholder="06/17" class="form-control input-md" payments-validate="expiry" payments-format="expiry" ng-required="account.paymentType === 'creditCard'">
+                            <!-- <span class="help-block" ng-show="signupForm.cc.$dirty && signupForm.cardNumber.$error">Credit Card is invalid</span> -->  
+                         </div>
+                         <label class="col-md-1 control-label" for="cvc">CVC {{signupForm.cvc.$valid}}</label>  
+                         <div class="col-md-1">
+                            <input id="cvc" name="cvc" ng-model="account.card.cardCVC" type="text" placeholder="905" class="form-control input-md" payments-validate="cvc" payments-format="cvc" ng-required="account.paymentType === 'creditCard'">
+                            <!-- <span class="help-block" ng-show="signupForm.cc.$dirty && signupForm.cardNumber.$error">Credit Card is invalid</span> -->  
+                         </div>
+                      </div>
+                    </fieldset>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        
+                    </div>
+                    <fieldset ng-show="ptab === 2">
+                        <div class="col-md-4">
+                        
+                    
+                            <img src="https://www.paypal-community.com/t5/image/serverpage/image-id/10498i9662491295327039?v=mpbl-1"/>
+                      </div>
+                    </fieldset>
+                </div>
+
+                <div class="row">
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="checkbox">Agree to Terms {{signupForm.terms.$valid}}</label>  
+                            <div class="checkbox">
+                                <label>
+                                  <input type="checkbox" id="terms" name="terms" ng-model="account.terms" required/> I have read and agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+                                </label>
+                              </div>
+                          </div>
+                    </fieldset>
+                </div>
+                <br/>
+
+
+
+            <div class="row">
+                <fieldset>
+                  <!-- Sign Up Button -->
+                  <div class="form-group">
+                     <label class="col-md-4 control-label" for="singlebutton">signupForm is {{signupForm.$valid}} </label>
+                     <div class="col-md-4">
+                        <button class="btn" ng-class=" { 'btn-success': signupForm.$valid } " type="submit">Sign Up</button>
+                     </div>
+                  </div>
+               </fieldset>
+            </form>
+        </div>
+
+
+
+      <pre>signupForm = {{account | json}}</pre>
+
+      <br />
+      <!-- Footer -->
+      <div class="container">
+         <footer>
+            <div class="row">
+               <div class="col-lg-12">
+                  <p>Copyright &copy; RackCommand 2014</p>
+               </div>
+            </div>
+         </footer>
+      </div>
+      <!-- jQuery -->
+      <script src="js/jquery.js"></script>
+      <!-- Bootstrap Core JavaScript -->
+      <script src="js/bootstrap.min.js"></script>
+      <!-- Custom Theme JavaScript -->
+      <script src="js/script.js"></script>
+   </body>
+</html>

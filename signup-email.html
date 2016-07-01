@@ -1,0 +1,27 @@
+					<fieldset>
+                      <!-- Email input-->
+                      <div class="form-group">
+                         <label class="col-md-4 control-label" for="email">Email {{signupForm.email.$valid}}</label>  
+                         <div class="col-md-4">
+                            <input id="email" name="email" ng-model="account.email" type="email" placeholder="john.appleseed@gmail.com" class="form-control input-md" exclude="account.accountType" required>
+                            <span class="help-block" ng-show="signupForm.email.$dirty && signupForm.email.$error.email">Email is invalid</span>  
+                         </div>
+                      </div>
+                      <!-- Password input-->
+                      <div class="form-group">
+                         <label class="col-md-4 control-label" for="password">Password {{signupForm.password.$valid}}</label>
+                         <div class="col-md-4">
+                            <input id="password" name="password" type="password" ng-model="account.password" match="account.verification" mlength="account.verification" placeholder="s3cuR3-pa$$w0rd" class="form-control input-md" required>
+                            <span class="help-block">8-character minimum; case sensitive</span>
+                         </div>
+                      </div>
+                      <!-- Password Verification input-->
+                      <div class="form-group">
+                         <label class="col-md-4 control-label" for="verification">Confirm Password {{signupForm.verification.$valid}}</label>
+                         <div class="col-md-4">
+                            <input id="verification" name="verification" type="password" ng-model="account.verification" match="account.password" mlength="account.password" placeholder="s3cuR3-pa$$w0rd" class="form-control input-md" required>
+                            <span class="help-block" ng-show="signupForm.verification.$dirty && signupForm.verification.$error.match">Passwords don't match.</span>
+                            <span class="help-block" ng-show="signupForm.verification.$dirty && signupForm.verification.$error.mlength">Password is less than 8 characters</span>
+                         </div>
+                      </div>
+                    </fieldset>
