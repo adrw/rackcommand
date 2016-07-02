@@ -6,6 +6,8 @@ Simply choose the packages you want installed, enter your SSH information, and R
 
 By [Andrew Paradi](http://andrewparadi.com) and [Brandon Chow](https://github.com/RandomMaker).
 
+![RackCommand](/img/screen2.png)
+
 #Progress
 - [x] Filterable portfolio of available software
 - [x] Signup page
