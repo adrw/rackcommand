@@ -4,7 +4,7 @@ An AngularJS front end for automated server software install platform.
 
 Simply choose the packages you want installed, enter your SSH information, and RackCommand will install for you.
 
-By [Andrew Paradi](http://andrewparadi.com) and [Brandon Chow](https://github.com/RandomMaker).
+By [Brandon Chow](https://github.com/RandomMaker) and [Andrew Paradi](http://andrewparadi.com).
 
 ![RackCommand](/img/screen2.png)
 
