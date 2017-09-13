@@ -1,4 +1,5 @@
-#RackCommand
+RackCommand
+---
 
 An AngularJS front end for automated server software install platform.
 
@@ -8,7 +9,8 @@ By [Brandon Chow](https://github.com/RandomMaker) and [Andrew Paradi](http://and
 
 ![RackCommand](/img/screen2.png)
 
-#Progress
+Progress
+---
 - [x] Filterable portfolio of available software
 - [x] Signup page
   - [x] Front end Facebook, Google, Twitter and Email signup options
@@ -24,5 +26,6 @@ By [Brandon Chow](https://github.com/RandomMaker) and [Andrew Paradi](http://and
 - [ ] Software install page
 - [ ] Secure SSH install functionality
 
-#Status
+Status
+---
 Development stopped as of December 2014.
